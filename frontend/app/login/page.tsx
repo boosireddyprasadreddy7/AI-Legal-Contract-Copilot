@@ -1,8 +1,28 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+"use client"
+
+import { useState } from "react"
+
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
 export default function LoginPage() {
+  const [loading, setLoading] = useState(false)
+
+  const handleLogin = async () => {
+    setLoading(true)
+
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000)
+  }
+
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-100 px-6">
       <Card className="w-full max-w-md shadow-lg">
@@ -17,8 +37,12 @@ export default function LoginPage() {
 
           <Input type="password" placeholder="Enter your password" />
 
-          <Button className="w-full">
-            Login
+          <Button
+            className="w-full"
+            onClick={handleLogin}
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Login"}
           </Button>
         </CardContent>
       </Card>
