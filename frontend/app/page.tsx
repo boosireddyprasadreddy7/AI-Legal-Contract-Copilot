@@ -1,25 +1,18 @@
 import Navbar from "@/components/layout/Navbar"
-import { Button } from "@/components/ui/button"
+import HeroSection from "@/components/common/HeroSection"
+import FeaturesSection from "@/components/common/FeaturesSection"
+import Footer from "@/components/common/Footer"
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-gray-100">
       <Navbar />
 
-      <section className="flex flex-col items-center justify-center h-[80vh] text-center">
-        <h1 className="text-6xl font-bold text-blue-600">
-          AI Legal Contract Copilot
-        </h1>
+      <HeroSection />
 
-        <p className="mt-6 text-xl text-gray-600 max-w-2xl">
-          Analyze legal contracts instantly using AI-powered risk detection,
-          summarization, and clause extraction.
-        </p>
+      <FeaturesSection />
 
-        <Button className="mt-8">
-          Get Started
-        </Button>
-      </section>
+      <Footer />
     </main>
   )
 }
