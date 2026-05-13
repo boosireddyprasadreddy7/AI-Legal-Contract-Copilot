@@ -1,4 +1,5 @@
 import Navbar from "@/components/layout/Navbar"
+import { Button } from "@/components/ui/button"
 
 export default function Home() {
   return (
@@ -15,9 +16,9 @@ export default function Home() {
           summarization, and clause extraction.
         </p>
 
-        <button className="mt-8 bg-blue-600 text-white px-6 py-3 rounded-xl text-lg hover:bg-blue-700 transition">
+        <Button className="mt-8">
           Get Started
-        </button>
+        </Button>
       </section>
     </main>
   )
