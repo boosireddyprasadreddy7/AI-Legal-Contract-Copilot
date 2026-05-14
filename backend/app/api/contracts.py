@@ -7,8 +7,11 @@ from fastapi import (
     File
 )
 
-router = APIRouter()
+from app.services.pdf_service import (
+    extract_text_from_pdf
+)
 
+router = APIRouter()
 
 UPLOAD_DIR = "uploads"
 
@@ -28,7 +31,12 @@ async def upload_contract(
             buffer
         )
 
+    extracted_text = extract_text_from_pdf(
+        file_path
+    )
+
     return {
         "message": "Contract uploaded successfully",
-        "filename": file.filename
+        "filename": file.filename,
+        "extracted_text": extracted_text[:3000]
     }

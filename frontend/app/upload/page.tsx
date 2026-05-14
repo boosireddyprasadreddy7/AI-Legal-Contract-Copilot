@@ -13,6 +13,9 @@ export default function UploadPage() {
   const [message, setMessage] =
     useState("")
 
+  const [extractedText, setExtractedText] =
+    useState("")
+
   const handleUpload = async () => {
     if (!file) return
 
@@ -27,6 +30,10 @@ export default function UploadPage() {
       )
 
       setMessage(response.data.message)
+
+      setExtractedText(
+        response.data.extracted_text
+      )
 
     } catch (error) {
       setMessage("Upload failed")
@@ -55,9 +62,21 @@ export default function UploadPage() {
         </Button>
 
         {message && (
-          <p className="text-lg">
+          <p className="text-lg font-semibold">
             {message}
           </p>
+        )}
+
+        {extractedText && (
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-2xl font-bold mb-4">
+              Extracted Contract Text
+            </h2>
+
+            <p className="whitespace-pre-wrap text-gray-700">
+              {extractedText}
+            </p>
+          </div>
         )}
       </div>
     </main>
