@@ -1,22 +1,38 @@
 "use client"
 
+import { useEffect, useState } from "react"
+
+import axios from "axios"
+
 import Navbar from "@/components/layout/Navbar"
 
-import useProtectedRoute from "@/hooks/useProtectedRoute"
-
-import { Button } from "@/components/ui/button"
-
-import { useRouter } from "next/navigation"
+type Contract = {
+  id: number
+  filename: string
+  file_path: string
+  uploaded_by: string
+}
 
 export default function DashboardPage() {
-  useProtectedRoute()
 
-  const router = useRouter()
+  const [contracts, setContracts] =
+    useState<Contract[]>([])
 
-  const handleLogout = () => {
-    localStorage.removeItem("token")
+  useEffect(() => {
+    fetchContracts()
+  }, [])
 
-    router.push("/login")
+  const fetchContracts = async () => {
+    try {
+      const response = await axios.get(
+        "http://127.0.0.1:8000/contracts"
+      )
+
+      setContracts(response.data)
+
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
@@ -24,23 +40,29 @@ export default function DashboardPage() {
       <Navbar />
 
       <section className="p-10">
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-5xl font-bold">
-              Dashboard
-            </h1>
+        <h1 className="text-5xl font-bold mb-10">
+          Your Contracts
+        </h1>
 
-            <p className="mt-4 text-gray-600 text-lg">
-              Welcome to your AI legal workspace.
-            </p>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-          <Button
-            variant="destructive"
-            onClick={handleLogout}
-          >
-            Logout
-          </Button>
+          {contracts.map((contract) => (
+            <div
+              key={contract.id}
+              className="bg-white p-6 rounded-lg shadow-md"
+            >
+              <h2 className="text-2xl font-bold">
+                {contract.filename}
+              </h2>
+
+              <p className="text-gray-600 mt-2">
+                Uploaded By:
+                {" "}
+                {contract.uploaded_by}
+              </p>
+            </div>
+          ))}
+
         </div>
       </section>
     </main>

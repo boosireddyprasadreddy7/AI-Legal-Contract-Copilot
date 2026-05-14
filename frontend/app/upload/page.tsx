@@ -13,7 +13,7 @@ export default function UploadPage() {
   const [message, setMessage] =
     useState("")
 
-  const [extractedText, setExtractedText] =
+  const [summary, setSummary] =
     useState("")
 
   const handleUpload = async () => {
@@ -31,9 +31,7 @@ export default function UploadPage() {
 
       setMessage(response.data.message)
 
-      setExtractedText(
-        response.data.extracted_text
-      )
+      setSummary(response.data.summary)
 
     } catch (error) {
       setMessage("Upload failed")
@@ -67,14 +65,14 @@ export default function UploadPage() {
           </p>
         )}
 
-        {extractedText && (
+        {summary && (
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-4">
-              Extracted Contract Text
+              AI Contract Summary
             </h2>
 
             <p className="whitespace-pre-wrap text-gray-700">
-              {extractedText}
+              {summary}
             </p>
           </div>
         )}
