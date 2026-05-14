@@ -1,0 +1,32 @@
+from sqlalchemy import (
+    Column,
+    Integer,
+    String
+)
+
+from app.database.database import Base
+
+
+class Contract(Base):
+    __tablename__ = "contracts"
+
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
+
+    filename = Column(
+        String,
+        nullable=False
+    )
+
+    file_path = Column(
+        String,
+        nullable=False
+    )
+
+    uploaded_by = Column(
+        String,
+        nullable=False
+    )
